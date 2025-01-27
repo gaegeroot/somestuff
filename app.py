@@ -4,6 +4,11 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+# Check for required environment variables
+if not os.getenv('YOUTUBE_API_KEY'):
+    raise ValueError("YOUTUBE_API_KEY environment variable is required")
+
 downloader = VideoAudioDownloader(output_dir="downloads")
 
 @app.route('/download', methods=['POST'])
